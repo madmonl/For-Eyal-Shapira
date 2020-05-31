@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div className="box-layout">
       <div className="box-layout__box">
         <h1 className="box-layout__title">Login</h1>
-        <button className="button" onClick={() => dispatch(firebaseLogin)}>Login with Google</button>
+        <button className="button" onClick={firebaseLogin()}>Login with Google</button>
       </div>
     </div>
   );

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import Dialog from '@material-ui/core/Dialog';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
+import { startAddUser } from '../users/usersSlice';
 
 export default function Modal() {
   const dispatch = useDispatch();
@@ -39,27 +40,31 @@ export default function Modal() {
   } 
 
   const actions = [
-      <FlatButton
-          label="Add"
-          primary={false}
-          keyboardFocused={false}
-          onClick={handleAddUser}
-      />
+    <Button 
+      variant="contained" 
+      color="primary" 
+      onClick={handleAddUser}
+    >Add</Button>
   ];
   
   const { name, age, hobbies, open } = userDetails;
 
   return (
     <div>
-      <FloatingActionButton onClick={toggleExamState} className="button--floating">
-        <ContentAdd />
-      </FloatingActionButton>
+      <Fab 
+        color="primary" 
+        aria-label="add"
+        onClick={toggleExamState} 
+        className="button--floating"
+      >
+        <AddIcon />
+      </Fab>
       <Dialog
         title="Add user"
         actions={actions}
         modal={false}
         open={open}
-        onRequestClose={this.toggleExamState}                    
+        onRequestClose={toggleExamState}                    
       >
       <TextField
         onChange={(event) => handleChange(event, 'name')}

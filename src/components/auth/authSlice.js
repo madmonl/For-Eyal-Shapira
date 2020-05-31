@@ -4,31 +4,35 @@ import { createSlice } from '@reduxjs/toolkit';
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    value: {},
+    value: { uid: null },
   },
   reducers: {
-      login: (_, uid) => ({ uid }),
-      firebaseLogin: () => {
-        return () => {
-            return firebase.auth().signInWithPopup(googleAuthProvider);          
-        }
+      login: (state, action) => { 
+        state.value.uid = action.payload; 
+      },      
+      logout: (state) => {
+        state.value.uid = null;
       },
-      logout: () => ({}),
-      firebaseLogout: () => {
-        return () => {
-            return firebase.auth().signOut();
-          }
-      }
     }
 });
 
 export const { 
     login, 
-    firebaseLogin, 
-    logout, 
-    firebaseLogout 
+    logout 
 } = authSlice.actions;
 
-export const selectAuth = state => !!state.auth.uid;
+export const selectAuth = state => !!state.auth.value.uid;
+
+export function firebaseLogin() {
+  return () => {
+      return firebase.auth().signInWithPopup(googleAuthProvider);          
+  }
+}
+
+export function firebaseLogout() {
+  return () => {
+      return firebase.auth().signOut();
+    }
+}
 
 export default authSlice.reducer;

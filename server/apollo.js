@@ -1,5 +1,5 @@
 const {  ApolloServer, gql } = require('apollo-server-express');
-const db = require('../src/components/firebase/firebase');
+const db = require('./firebase/firebase');
 
 const typeDefs = gql`
   type Query {

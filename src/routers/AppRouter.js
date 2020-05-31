@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import Dashboard from '../components/dashboard/Dashboard';
+import Users from '../components/users/Users';
 import NotFound from '../components/notFound/NotFound';
 import Auth from '../components/auth/Auth';
 import PrivateRoute from './PrivateRoute';
@@ -15,7 +15,7 @@ function AppRouter() {
       <div>
         <Switch>
           <PublicRoute path="/" component={Auth} exact={true} />
-          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/dashboard" component={Users} />
           <Route component={NotFound} />
         </Switch>
       </div>

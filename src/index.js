@@ -3,36 +3,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
-import configureStore from './components/store/configureStore';
+import store from './app/store';
 import { login, logout } from './components/auth/authSlice';
-import 'normalize.css/normalize.css';
 import './styles/styles.scss';
-import 'react-dates/lib/css/_datepicker.css';
-import { firebase } from './firebase/firebase';
-import LoadingPage from './components/LoadingPage';
-import { fetchUsers } from './actions/users'
+import { firebase } from './components/firebase/firebase';
+import LoadingPage from './components/loadingPage/LoadingPage';
+import { fetchUsers } from './components/users/usersSlice'
 import ApolloClient from 'apollo-boost';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql',
 });
 
-const store = configureStore();
-const jsx = (
+const App = (
   <React.StrictMode>
-    <MuiThemeProvider>
-      <Provider store={store}>
-        <AppRouter />
-      </Provider>
-    </MuiThemeProvider>
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
   </React.StrictMode>
 );
 
 let hasRendered = false;
 const renderApp = () => {
   if (!hasRendered) {
-    ReactDOM.render(jsx, document.getElementById('root'));
+    ReactDOM.render(App, document.getElementById('root'));
     hasRendered = true;
   }
 };

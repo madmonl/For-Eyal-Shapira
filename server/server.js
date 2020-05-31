@@ -11,7 +11,8 @@ apolloServer.applyMiddleware({ app });
 app.use(express.static(publicPath));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
+  console.log('requested')
+  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
 app.listen(port, () => {

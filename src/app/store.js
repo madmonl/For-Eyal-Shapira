@@ -4,7 +4,7 @@ import usersReducer from '../components/users/usersSlice';
 
 export default configureStore({
   reducer: {
-    auth: authReducer,
+    auth: authReducer, 
     users: usersReducer
-  },
+  }
 });

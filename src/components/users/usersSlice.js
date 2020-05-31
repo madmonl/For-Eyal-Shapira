@@ -1,7 +1,24 @@
-import { firebase, googleAuthProvider } from '../firebase/firebase';
 import { createSlice } from '@reduxjs/toolkit';
-import { client } from './../app.js'
+import { client } from './../../index.js'
 import { gql } from 'apollo-boost';
+
+export const usersSlice = createSlice({
+  name: 'users',
+  initialState: {
+    value: [],
+  },
+  reducers: {
+    addUser: (state, action) => {
+      state.users.push(action.payload);
+    },
+    setUsers: (state, action) => {
+      state.value = action.payload
+    }
+  }
+});
+
+const { addUser, setUsers } = usersSlice.actions;
+
 
 export function fetchUsers() {
   return async (dispatch) => {
@@ -18,13 +35,10 @@ export function fetchUsers() {
       query: usersQuery
     })
 
+    console.log(res.data.users)
     dispatch(setUsers(res.data.users));
   }
-}
-
-function setUsers(_, users) {
-  return users;
-}
+} 
 
 export function startAddUser(_, { name, age, hobbies }) {
   return async (dispatch) => {
@@ -42,33 +56,14 @@ export function startAddUser(_, { name, age, hobbies }) {
       variables: { name, age, hobbies }
     })
 
-    const  { name, age, hobbies} = res.data.createUser; 
-    dispatch(addUser({ name, age, hobbies }));
+    return dispatch(addUser({
+      name: res.data.createUser.name, 
+      age: res.data.createUser.age, 
+      hobbies: res.data.createUser.hobbies       
+    }));
   }
 }
 
-function addUser(state, user) {
-  return [ ...state.users, user ];
-}
-
-export const usersSlice = createSlice({
-  name: 'users',
-  initialState: {
-    value: [],
-  },
-  reducers: {
-    fetchUsers,
-    setUsers,
-    startAddUser
-  }
-});
-
-export const { 
-    logfetchUsersin, 
-    setUsers, 
-    startAddUser 
-} = usersSlice.actions;
-
-export const selectUsers = state => state.users;
+export const selectUsers = state => state.users.value;
 
 export default usersSlice.reducer;
