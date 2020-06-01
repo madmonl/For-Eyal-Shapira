@@ -1,10 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { firebaseLogin } from './authSlice';
 
 export default function LoginPage() {
-  const dispatch = useDispatch();
-
   return (
     <div className="box-layout">
       <div className="box-layout__box">
