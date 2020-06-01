@@ -9,7 +9,7 @@ export const usersSlice = createSlice({
   },
   reducers: {
     addUser: (state, action) => {
-      state.users.push(action.payload);
+      state.value.push(action.payload);
     },
     setUsers: (state, action) => {
       state.value = action.payload
@@ -40,7 +40,7 @@ export function fetchUsers() {
   }
 } 
 
-export function startAddUser(_, { name, age, hobbies }) {
+export function startAddUser({ name, age, hobbies }) {
   return async (dispatch) => {
     const userMutation = gql`
       mutation createUser ($name: String!, $age: Int!, $hobbies: [String!]!){

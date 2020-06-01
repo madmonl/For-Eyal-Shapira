@@ -11,7 +11,6 @@ export default function Header() {
     <header className="header">
       <div className="content-container">
         <div className="header__content">
-          <Link className="header__title" to="/dashboard" />
           <Modal />
           <button className="button button--link" onClick={() => dispatch(firebaseLogout())}>Logout</button>
         </div>

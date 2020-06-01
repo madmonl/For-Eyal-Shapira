@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
@@ -36,7 +38,12 @@ export default function Modal() {
     }
 
     dispatch(startAddUser(user));
-    toggleExamState()
+    setUserDetails({ 
+      open: false,
+      name: null,
+      age: null,
+      hobbies: null
+    })
   } 
 
   const actions = [
@@ -60,27 +67,33 @@ export default function Modal() {
         <AddIcon />
       </Fab>
       <Dialog
-        title="Add user"
+        className="modal"
         actions={actions}
         modal={false}
         open={open}
-        onRequestClose={toggleExamState}                    
+        onClose={toggleExamState}                    
       >
-      <TextField
-        onChange={(event) => handleChange(event, 'name')}
-        value={name}
-        floatingLabelText="Insert your name"
-      /><br />
-      <TextField
-        onChange={(event) => this.handleChange(event, 'hobbies')}
-        value={hobbies}
-        floatingLabelText="Space separated hobbies"
-      /><br />
-      <TextField
-        onChange={(event) => this.handleChange(event, 'age')}
-        value={age}
-        floatingLabelText="Insert your age"
-      /><br />
+        <DialogTitle id="simple-dialog-title">Insert user details</DialogTitle>
+        <TextField
+          onChange={(event) => handleChange(event, 'name')}
+          value={name}
+          label="Insert your name"
+        /><br />
+        <TextField
+          onChange={(event) => handleChange(event, 'hobbies')}
+          value={hobbies}
+          label="Space separated hobbies"
+        /><br />
+        <TextField
+          onChange={(event) => handleChange(event, 'age')}
+          value={age}
+          label="Insert your age"
+        /><br />
+        <CardActions>
+          <Button onClick={handleAddUser} size="small" color="primary">
+            Add
+          </Button>
+      </CardActions>
       </Dialog>
     </div>
   )
